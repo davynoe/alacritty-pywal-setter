@@ -67,9 +67,9 @@ color15='#d6c6a6'
 ...
 ```
 
-##### Output (~/.config/alacritty/alacritty.yml):
+##### Output (~/.config/alacritty/alacritty.toml):
 
-```toml
+```yaml
 ...
 # BEGIN ACE
 [colors.primary]
