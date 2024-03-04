@@ -1,34 +1,39 @@
-# Alacritty Color Export
+# Alacritty Pywal Setter
 
-A temporary, Regex based solution to export generated (Wal) colors into Alacritty config with one command.
+A bash script to export generated colors from pywal to Alacritty's updated config.
 
-Tested on macOS (10.14.6, 10.15.2, 11.2.1) with Alacritty (0.3.3, 0.4.2-dev, **0.6.0**) and works as intended.
-Sed commands may differ on untested distros and give errors.
+Tested on Arch Linux (March 5th 2024) with Alacritty (0.13.1-1) and it works.
+The results won't matter on any linux distro.
 
-## Initial Purpose
-Currently there's no easy way to send [wal](https://github.com/dylanaraps/pywal/) colors to alacritty config in Mac. So I created this script to automatically update colors as a temporary solution.
+## Fork Purpose
+Original project was based on yaml, but Alacritty changed it's default config from yaml to toml.
 
 ## Installation
-**Deps:** grep, sed
-
-You can simply go to [raw file](https://github.com/egeesin/alacritty-color-export/raw/master/script.sh) and save the file to your script directory or open your terminal emulator:
-
 ```sh
-git clone https://github.com/egeesin/alacritty-color-export
+git clone https://github.com/davynoe/alacritty-pywal-setter
 cd alacritty-color-export
 chmod +x script.sh
 ```
 
 ## Usage
-Before executing the script, comment existing color declarations out in order to avoid duplication errors and keep your initial colors.
-Also to get colors, you must have run ``wal -i <image.png>`` (or ``wal -ni <image.png>`` if you on Mac) once. If you already did, then...
+Comment out your existing colors in your Alacritty config or remove them before running the script to avoid duplication errors.
+Generate wal colors based on your image if you never did it before:
+### On Linux
+```sh
+wal -i <image.png>
+```
+
+### On Mac
+```sh
+wal -ni <image.png>
+```
 
 ```sh
 # Execute
 ./script.sh
 
 # Execute with custom config
-./script.sh <config.yml>
+./script.sh </path/to/config.toml>
 ```
 
 ## Example
@@ -64,55 +69,41 @@ color15='#d6c6a6'
 
 ##### Output (~/.config/alacritty/alacritty.yml):
 
-```yaml
+```toml
 ...
 # BEGIN ACE
-colors:
-  primary:
-    background: '#0a0c0a'
-    foreground: '#d6c6a6'
-  cursor:
-    text:       '#0a0c0a'
-    cursor:     '#d6c6a6'
-  normal:
-    black:      '#0a0c0a'
-    red:        '#514739'
-    green:      '#6B4F39'
-    yellow:     '#776338'
-    blue:       '#5E5747'
-    magenta:    '#936843'
-    cyan:       '#75936F'
-    white:      '#d6c6a6'
-  bright:
-    black:      '#958a74'
-    red:        '#514739'
-    green:      '#6B4F39'
-    yellow:     '#776338'
-    blue:       '#5E5747'
-    magenta:    '#936843'
-    cyan:       '#75936F'
-    white:      '#d6c6a6'
+[colors.primary]
+background = "0x0e0400"
+foreground = "0xf5e6c6"
+
+[colors.cursor]
+text =       "0x0e0400"
+cursor =     "0xf5e6c6"
+
+[colors.normal]
+black =      "0x0e0400"
+red =        "0xBB6E37"
+green =      "0xAE8F38"
+yellow =     "0xC3913F"
+blue =       "0xDBAA4B"
+magenta =    "0xF7C95E"
+cyan =       "0xE3BB87"
+white =      "0xf5e6c6"
+
+[colors.bright]
+black =      "$color8"
+red =        "0xBB6E37"
+green =      "0xAE8F38"
+yellow =     "0xC3913F"
+blue =       "0xDBAA4B"
+magenta =    "0xF7C95E"
+cyan =       "0xE3BB87"
+white =      "0xf5e6c6"
 # END ACE
 ```
 
-## Known Issues
+## Possible Issues
 - ~~If there isn't ``# BEGIN ACE`` comment, the script wipes out whole config.~~
-
-## Roadmap
-- [x] Fix critical issues
-- [ ] Make use of config import
-  - [ ] Remove necessity of surrounding comments for not corrupt config
-- [ ] Handle indented lines instead of repeated group names
-- [ ] Option to disable cursor and selection colors
-- [ ] Add subcommands to define input (colors) and output (Alacritty config) path
-- [ ] Support for different default config path for different OS
-- [ ] An option to clean all possible duplicate color declarations and generate new ones
-
-## Related Links
-- [pywal Issue #37 - Alacritty doesn't seem to be working with wal](https://github.com/dylanaraps/pywal/issues/37)
-
-## Contribution
-Don't forget to backup config and thank you for your contribution in advance. Any information from testing on different systems would valuable to anyone who interested in this script. Issues and PR's are welcomed.
 
 ## License
 This software is under [The Do What The Fuck You Want To Public License (WTFPL)](http://www.wtfpl.net/about/).

@@ -1,0 +1,31 @@
+[font]
+size = 10
+# BEGIN ACE
+[colors.primary]
+background = "0x0e0400"
+foreground = "0xf5e6c6"
+
+[colors.cursor]
+text =       "0x0e0400"
+cursor =     "0xf5e6c6"
+
+[colors.normal]
+black =      "0x0e0400"
+red =        "0xBB6E37"
+green =      "0xAE8F38"
+yellow =     "0xC3913F"
+blue =       "0xDBAA4B"
+magenta =    "0xF7C95E"
+cyan =       "0xE3BB87"
+white =      "0xf5e6c6"
+
+[colors.bright]
+black =      "$color8"
+red =        "0xBB6E37"
+green =      "0xAE8F38"
+yellow =     "0xC3913F"
+blue =       "0xDBAA4B"
+magenta =    "0xF7C95E"
+cyan =       "0xE3BB87"
+white =      "0xf5e6c6"
+# END ACE

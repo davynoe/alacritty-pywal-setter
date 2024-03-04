@@ -1,15 +1,14 @@
 #!/bin/sh
-# Alacritty Color Export
-# Version 0.1.1
-# github.com/egeesin
-#
-# Exports generated Wal colors to Alacritty config
+# Alacritty Pywal Setter (fork of alacritty-color-export)
+# Version 0.2 
+# github.com/davynoe
+
+# Exports generated Pywal colors to Alacritty config
 # WARNING: Don't forget to backup your Alacritty config
 # before execute this script!
-#
-# Dependencies: grep, sed
+
 # Usage: ./script.sh
-#        ./script.sh <config yml>
+#        ./script.sh </path/to/config>
 
 # Function to display error and quit
 die() {
@@ -17,7 +16,7 @@ die() {
   exit 1
 }
 
-DEFAULT_MACOS_CONFIG="$HOME"/.config/alacritty/alacritty.yml
+DEFAULT_UNIX_CONFIG="$HOME"/.config/alacritty/alacritty.toml
 
 # Wal generates a shell script that defines color0..color15
 SRC="$HOME"/.cache/wal/colors.sh
@@ -37,13 +36,13 @@ if [ -n "$1" ]; then
     CFG=$($READLINK -f "$1")
   }
 else
-  # Default config path in Mac systems
-  [ -e "$DEFAULT_MACOS_CONFIG" ] || die "Alacritty config not found, exiting script."
+  # Default config path in Linux/Mac systems
+  [ -e "$DEFAULT_UNIX_CONFIG" ] || die "Alacritty config not found, exiting script."
 
-  CFG="$DEFAULT_MACOS_CONFIG"
-  [ -L "$DEFAULT_MACOS_CONFIG" ] && {
+  CFG="$DEFAULT_UNIX_CONFIG"
+  [ -L "$DEFAULT_UNIX_CONFIG" ] && {
     printf "Following symlink to config...\n"
-    CFG=$($READLINK -f "$DEFAULT_MACOS_CONFIG")
+    CFG=$($READLINK -f "$DEFAULT_UNIX_CONFIG")
   }
 fi
 
@@ -83,31 +82,33 @@ fi
 # We know $colorX is unset, we set it by sourcing above
 # shellcheck disable=SC2154
 { sed "/^# BEGIN ACE/ r /dev/stdin" "$CFG" > "$tempfile" <<EOF
-colors:
-  primary:
-    background: '$color0'
-    foreground: '$color7'
-  cursor:
-    text:       '$color0'
-    cursor:     '$color7'
-  normal:
-    black:      '$color0'
-    red:        '$color1'
-    green:      '$color2'
-    yellow:     '$color3'
-    blue:       '$color4'
-    magenta:    '$color5'
-    cyan:       '$color6'
-    white:      '$color7'
-  bright:
-    black:      '$color8'
-    red:        '$color9'
-    green:      '$color10'
-    yellow:     '$color11'
-    blue:       '$color12'
-    magenta:    '$color13'
-    cyan:       '$color14'
-    white:      '$color15'
+[colors.primary]
+background = "$color0"
+foreground = "$color7"
+
+[colors.cursor]
+text =       "$color0"
+cursor =     "$color7"
+
+[colors.normal]
+black =      "$color0"
+red =        "$color1"
+green =      "$color2"
+yellow =     "$color3"
+blue =       "$color4"
+magenta =    "$color5"
+cyan =       "$color6"
+white =      "$color7"
+
+[colors.bright]
+black =      "$color8"
+red =        "$color9"
+green =      "$color10"
+yellow =     "$color11"
+blue =       "$color12"
+magenta =    "$color13"
+cyan =       "$color14"
+white =      "$color15"
 EOF
 } && cat "$tempfile" > "$CFG" \
   && rm "$tempfile"
