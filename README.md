@@ -1,13 +1,13 @@
 # Alacritty Pywal Setter
 
-A bash script to export generated colors from pywal to Alacritty's updated config.
+A bash script to export generated colors from [pywal](https://github.com/dylanaraps/pywal) to Alacritty's updated config.
 
 Tested on Arch Linux (March 5th 2024) with Alacritty (0.13.1-1) and it works.
 The results won't matter on any Linux distro.
 
 ## Fork Purpose
 Original project was based on yaml, but Alacritty changed it's default config from yaml to toml.
-
+So I updated the project to work on toml.
 ## Installation
 ```sh
 git clone https://github.com/davynoe/alacritty-pywal-setter
