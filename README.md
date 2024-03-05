@@ -11,21 +11,17 @@ Original project was based on yaml, but Alacritty changed it's default config fr
 ## Installation
 ```sh
 git clone https://github.com/davynoe/alacritty-pywal-setter
-cd alacritty-color-export
+cd alacritty-pywal-setter
 chmod +x script.sh
 ```
 
 ## Usage
 Comment out your existing colors in your Alacritty config or remove them before running the script to avoid duplication errors.
-Generate wal colors based on your image if you never did it before:
-### On Linux
-```sh
-wal -i <image.png>
-```
 
-### On Mac
+Generate wal colors based on your image if you never done it or if you want to use a different image from before:
+###
 ```sh
-wal -ni <image.png>
+wal -i <image>
 ```
 
 ```sh
@@ -36,71 +32,7 @@ wal -ni <image.png>
 ./script.sh </path/to/config.toml>
 ```
 
-## Example
-
-##### Terminal emulator:
-
-```bash
-$ ./script.sh
-```
-
-##### Input (~/.cache/wal/colors.sh):
-
-```
-...
-color0='#0a0c0a'
-color1='#514739'
-color2='#6B4F39'
-color3='#776338'
-color4='#5E5747'
-color5='#936843'
-color6='#75936F'
-color7='#d6c6a6'
-color8='#958a74'
-color9='#514739'
-color10='#6B4F39'
-color11='#776338'
-color12='#5E5747'
-color13='#936843'
-color14='#75936F'
-color15='#d6c6a6'
-...
-```
-
-##### Output (~/.config/alacritty/alacritty.toml):
-
-```yaml
-...
-# BEGIN ACE
-[colors.primary]
-background = "0x0e0400"
-foreground = "0xf5e6c6"
-
-[colors.cursor]
-text =       "0x0e0400"
-cursor =     "0xf5e6c6"
-
-[colors.normal]
-black =      "0x0e0400"
-red =        "0xBB6E37"
-green =      "0xAE8F38"
-yellow =     "0xC3913F"
-blue =       "0xDBAA4B"
-magenta =    "0xF7C95E"
-cyan =       "0xE3BB87"
-white =      "0xf5e6c6"
-
-[colors.bright]
-black =      "$color8"
-red =        "0xBB6E37"
-green =      "0xAE8F38"
-yellow =     "0xC3913F"
-blue =       "0xDBAA4B"
-magenta =    "0xF7C95E"
-cyan =       "0xE3BB87"
-white =      "0xf5e6c6"
-# END ACE
-```
+You can take a look at example.toml on this repository, it is an example of the expected config after you run the script.
 
 ## Possible Issues
 - ~~If there isn't ``# BEGIN ACE`` comment, the script wipes out whole config.~~
